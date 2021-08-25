@@ -1,30 +1,34 @@
 import numpy as np
-import pandas as pd
 
+# Evaluación del modelo dadas las entradas xs y coeficientes bs
 def h(xs, bs):
     return np.dot(xs, bs)
 
-def grad_mse(xs, ys, bs):
-    return (2 / len(bs)) * np.dot(np.matrix.transpose(xs), h(xs, bs) - ys)
+# Cálculo de gradiente, esto se transcribió directamente desde la fórmula
+def grad_mse(xs, ys, bs, n):
+    return (2 / n) * np.dot(h(xs, bs) - ys, xs)
 
-def grad_desc(xs, ys):
-    alpha = 0.5
-    bs = np.ones(xs.shape[1])
-    gs = bs
+# Implementación de descenso de gradiente
+def grad_desc(xs, ys, alpha):
+    xs = np.insert(xs, 0, 1, axis=1) # intercept value added
+    gs = bs = np.ones(xs.shape[1])
     steps = 0
 
-    while np.linalg.norm(gs) > 0.1 and steps < 10:
-        print(np.linalg.norm(gs))
-        gs = grad_mse(xs, ys, bs)
+    while np.linalg.norm(gs) > 0.01 and steps < 10_000:
+        gs = grad_mse(xs, ys, bs, xs.shape[0])
         bs -= alpha * gs
         steps += 1
 
-    return bs
+    return bs[0], bs[1:] # intercept, beta coefficients
 
+# Script principal
 if __name__ == '__main__':
-    dataset = np.loadtxt("genero.txt", skiprows=1, usecols=(1,2), delimiter=',')
-    
-    xs = np.array([row[:-1] for row in dataset])
-    ys = np.array([row[-1] for row in dataset])
+    data = np.loadtxt("genero.txt", skiprows=1, usecols=(1,2), delimiter=',')
 
-    print('result:', grad_desc(xs, ys))
+    xs = np.array([row[:-1] for row in data])
+    ys = np.array([row[-1] for row in data])
+
+    intercept, bs = grad_desc(xs, ys, 0.00001)
+
+    print('intercept value:', intercept)
+    print('coeffiecients:', bs)
