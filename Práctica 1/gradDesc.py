@@ -10,7 +10,7 @@ def grad_mse(xs, ys, bs, n):
 
 # Implementación de descenso de gradiente
 def grad_desc(xs, ys, alpha):
-    xs = np.insert(xs, 0, 1, axis=1) # intercept value added
+    xs = np.insert(xs, 0, 1, axis=1) # Valor para la intersección 
     gs = bs = np.ones(xs.shape[1])
     steps = 0
 
@@ -19,16 +19,26 @@ def grad_desc(xs, ys, alpha):
         bs -= alpha * gs
         steps += 1
 
-    return bs[0], bs[1:] # intercept, beta coefficients
+    return bs[0], bs[1:] # intersección, coeficientes
 
 # Script principal
 if __name__ == '__main__':
     data = np.loadtxt("genero.txt", skiprows=1, usecols=(1,2), delimiter=',')
-
     xs = np.array([row[:-1] for row in data])
     ys = np.array([row[-1] for row in data])
 
     intercept, bs = grad_desc(xs, ys, 0.00001)
 
+    print('=== genero.txt ===')
+    print('intercept value:', intercept)
+    print('coeffiecients:', bs)
+
+    data = np.loadtxt("mtcars.txt", skiprows=1, usecols=(4,5,7))
+    xs = np.array([[row[0], row[2]] for row in data])
+    ys = np.array([row[1] for row in data])
+
+    intercept, bs = grad_desc(xs, ys, 0.00001)
+
+    print('=== mtcars.txt ===')
     print('intercept value:', intercept)
     print('coeffiecients:', bs)

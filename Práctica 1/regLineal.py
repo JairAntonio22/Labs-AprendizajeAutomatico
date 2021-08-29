@@ -24,6 +24,7 @@ def genero():
 
     #El modelo encuentra el mejor valor para el intercept y el slope para crear la línea
     #Para el intercept
+    print('=== genero.txt ===')
     print('Intercept value: ', regressor.intercept_)
     #Para el slope:
     print('Coefficients: ', regressor.coef_)
@@ -34,11 +35,6 @@ def genero():
     #Se compara el valor actual para X_Test con los predicted values
     df = pd.DataFrame({'Actual': y_test.flatten(), 'Predicted': y_pred.flatten()})
     print(df)
-
-    #Se grafica la línea de regresión con el Test Data
-    plt.scatter(X_test, y_test,  color='gray')
-    plt.plot(X_test, y_pred, color='red', linewidth=2)
-    plt.show()
 
     #Se evalúa el desempeño del algoritmo. 
     print('Mean Absolute Error:', metrics.mean_absolute_error(y_test, y_pred))
@@ -65,6 +61,7 @@ def carros():
 
     #El modelo encuentra el mejor valor para el intercept y el slope para crear la línea
     #Para el intercept
+    print('=== mtcars.txt ===')
     print('Intercept value: ', regressor.intercept_)
     #Para el slope:
     print('Coefficients: ', regressor.coef_)
@@ -76,21 +73,10 @@ def carros():
     df = pd.DataFrame({'Actual': y_test.flatten(), 'Predicted': y_pred.flatten()})
     print(df)
 
-    fig = plt.figure()
-    ax = plt.axes(projection='3d')
-
-    x = [val[0] for val in x]
-    y = [val[0] for val in y]
-    z = [val[0] for val in z]
-
-    #Se grafica la línea de regresión con el Test Data
-    ax.scatter(x, y, z,  color='gray')
-    ax.plot_surface(X_test, y_pred, color='red', linewidth=2)
-    plt.show()
-
     #Se evalúa el desempeño del algoritmo. 
     print('Mean Absolute Error:', metrics.mean_absolute_error(y_test, y_pred))
     print('Mean Squared Error:', metrics.mean_squared_error(y_test, y_pred))
     print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
 
+genero()
 carros()
