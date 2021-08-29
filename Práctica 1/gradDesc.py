@@ -37,7 +37,7 @@ if __name__ == '__main__':
     xs = np.array([[row[0], row[2]] for row in data])
     ys = np.array([row[1] for row in data])
 
-    intercept, bs = grad_desc(xs, ys, 0.00001)
+    intercept, bs = grad_desc(xs, ys, 0.0000001)
 
     print('=== mtcars.txt ===')
     print('intercept value:', intercept)
