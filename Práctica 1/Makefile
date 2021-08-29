@@ -1,5 +1,5 @@
 
-anls:
+analisis:
 	clear
 	R -f analysis.R
 
