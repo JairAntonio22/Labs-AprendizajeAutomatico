@@ -36,16 +36,14 @@ def default():
 
     conf_matrix = confusion_matrix(y_test,y_pred)
 
-    #fig, ax = plt.subplots(figsize=(7.5, 7.5))
-    #ax.matshow(conf_matrix, cmap=plt.cm.Blues, alpha=0.3)
-    #for i in range(conf_matrix.shape[0]):
-    #    for j in range(conf_matrix.shape[1]):
-    #        ax.text(x=j, y=i,s=conf_matrix[i, j], va='center', ha='center', size='xx-large')
+    conf_matrix = confusion_matrix(y_test,y_pred)
 
-    #plt.xlabel('Predictions', fontsize=18)
-    #plt.ylabel('Actuals', fontsize=18)
-    #plt.title('Confusion Matrix', fontsize=18)
-    #plt.show()
+    cmn = conf_matrix.astype('float') / conf_matrix.sum(axis=1)[:,np.newaxis]
+    fig, ax = plt.subplots(figsize=(10,10))
+    sb.heatmap(cmn, annot=True, fmt='.2f', xticklabels=('Predicted No', 'Predicted Yes'), yticklabels=('Actual No', 'Actual Yes'))
+    plt.ylabel('Actual')
+    plt.xlabel('Predicted')
+    plt.show()
 
 def genero():
     df = pd.read_csv("genero.txt",header=0)
@@ -72,7 +70,13 @@ def genero():
     print("Accuracy Percentage: ", accuracy_percentage)
 
     conf_matrix = confusion_matrix(y_test,y_pred)
-    
+
+    cmn = conf_matrix.astype('float') / conf_matrix.sum(axis=1)[:,np.newaxis]
+    fig, ax = plt.subplots(figsize=(10,10))
+    sb.heatmap(cmn, annot=True, fmt='.2f', xticklabels=('Predicted Female', 'Predicted Male'), yticklabels=('Actual Female', 'Actual Male'))
+    plt.ylabel('Actual')
+    plt.xlabel('Predicted')
+    plt.show()
 
 default()
 genero()
