@@ -32,9 +32,7 @@ def default():
     print("Classification Report:\n", classification_report(y_test,y_pred))
     accuracy = accuracy_score(y_test, y_pred)
     accuracy_percentage = 100 * accuracy
-    print("Accuracy Percentage: ", accuracy_percentage)
-
-    conf_matrix = confusion_matrix(y_test,y_pred)
+    print("Accuracy Percentage: ", accuracy_percentage, "%")
 
     conf_matrix = confusion_matrix(y_test,y_pred)
 
@@ -67,7 +65,7 @@ def genero():
     print("Classification Report:\n", classification_report(y_test,y_pred))
     accuracy = accuracy_score(y_test, y_pred)
     accuracy_percentage = 100 * accuracy
-    print("Accuracy Percentage: ", accuracy_percentage)
+    print("Accuracy Percentage: ", accuracy_percentage, "%")
 
     conf_matrix = confusion_matrix(y_test,y_pred)
 
