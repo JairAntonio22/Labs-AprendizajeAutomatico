@@ -43,6 +43,25 @@ def default():
     plt.xlabel('Predicted')
     plt.show()
 
+def scatterGenero(figurenum,xs, ys):
+    x_male = []
+    y_male = []
+    x_female = []
+    y_female = []
+
+    for x, y in zip(xs, ys):
+        if y == 1:
+            x_male.append(x[0])
+            y_male.append(x[1])
+        else:
+            x_female.append(x[0])
+            y_female.append(x[1])
+
+    plt.figure(figurenum)
+    plt.scatter(x_male, y_male, color='blue')
+    plt.scatter(x_female, y_female, color='red')
+
+
 def genero():
     df = pd.read_csv("genero.txt",header=0)
 
@@ -50,8 +69,8 @@ def genero():
 
     df.Gender = [gender[item] for item in df.Gender]
 
-    X = df[['Height','Weight']]
-    y = df[['Gender']]
+    X = np.array(df[['Height','Weight']])
+    y = np.array(df[['Gender']])
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 
@@ -74,6 +93,10 @@ def genero():
     sb.heatmap(cmn, annot=True, fmt='.2f', xticklabels=('Predicted Female', 'Predicted Male'), yticklabels=('Actual Female', 'Actual Male'))
     plt.ylabel('Actual')
     plt.xlabel('Predicted')
+    plt.show()
+
+    scatterGenero(3,X_train, y_train)
+    scatterGenero(4,X_test, y_pred)
     plt.show()
 
 default()
