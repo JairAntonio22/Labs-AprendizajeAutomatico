@@ -36,6 +36,14 @@ def default():
 
     conf_matrix = confusion_matrix(y_test,y_pred)
 
+    fpr = conf_matrix[0][1] / (conf_matrix[0][1] + conf_matrix[1][1])
+    tpr = conf_matrix[0][0] / (conf_matrix[0][0] + conf_matrix[1][0])
+
+    plt.figure(2)
+    plt.scatter([fpr, 0, 0, 1, 1], [tpr, 0, 1, 0, 1])
+    plt.plot([0, fpr, 1], [0, tpr, 1])
+    plt.savefig('rocCreditRegLog.png')
+
     cmn = conf_matrix.astype('float') / conf_matrix.sum(axis=1)[:,np.newaxis]
     fig, ax = plt.subplots(figsize=(10,10))
     sb.heatmap(cmn, annot=True, fmt='.2f', xticklabels=('Predicted No', 'Predicted Yes'), yticklabels=('Actual No', 'Actual Yes'))
@@ -88,6 +96,14 @@ def genero():
 
     conf_matrix = confusion_matrix(y_test,y_pred)
 
+    fpr = conf_matrix[0][1] / (conf_matrix[0][1] + conf_matrix[1][1])
+    tpr = conf_matrix[0][0] / (conf_matrix[0][0] + conf_matrix[1][0])
+
+    plt.figure(2)
+    plt.scatter([fpr, 0, 0, 1, 1], [tpr, 0, 1, 0, 1])
+    plt.plot([0, fpr, 1], [0, tpr, 1])
+    plt.savefig('rocGeneroRegLog.png')
+
     cmn = conf_matrix.astype('float') / conf_matrix.sum(axis=1)[:,np.newaxis]
     fig, ax = plt.subplots(figsize=(10,10))
     sb.heatmap(cmn, annot=True, fmt='.2f', xticklabels=('Predicted Female', 'Predicted Male'), yticklabels=('Actual Female', 'Actual Male'))
@@ -95,7 +111,7 @@ def genero():
     plt.xlabel('Predicted')
     plt.savefig('confusionGeneroMatRegLog.png')
 
-    scatterGenero(2, X_test, y_pred)
+    scatterGenero(4, X_test, y_pred)
     plt.savefig('weightHeightRegLog.png')
 
     plt.show()

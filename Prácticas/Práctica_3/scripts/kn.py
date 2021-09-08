@@ -44,6 +44,14 @@ def credit():
     y_pred = neigh.predict(X_test)
     conf_matrix = confusion_matrix(y_test, y_pred)
 
+    fpr = conf_matrix[0][1] / (conf_matrix[0][1] + conf_matrix[1][1])
+    tpr = conf_matrix[0][0] / (conf_matrix[0][0] + conf_matrix[1][0])
+
+    plt.figure(2)
+    plt.scatter([fpr, 0, 0, 1, 1], [tpr, 0, 1, 0, 1])
+    plt.plot([0, fpr, 1], [0, tpr, 1])
+    plt.savefig('rocCreditKN.png')
+
     cmn = conf_matrix.astype('float') / conf_matrix.sum(axis=1)[:,np.newaxis]
     fig, ax = plt.subplots(figsize=(10,10))
     sb.heatmap(
@@ -119,6 +127,14 @@ def genero():
     plt.savefig('weightHeightKN.png')
 
     conf_matrix = confusion_matrix(y_test, y_pred)
+
+    fpr = conf_matrix[0][1] / (conf_matrix[0][1] + conf_matrix[1][1])
+    tpr = conf_matrix[0][0] / (conf_matrix[0][0] + conf_matrix[1][0])
+
+    plt.figure(4)
+    plt.scatter([fpr, 0, 0, 1, 1], [tpr, 0, 1, 0, 1])
+    plt.plot([0, fpr, 1], [0, tpr, 1])
+    plt.savefig('rocGeneroKN.png')
 
     cmn = conf_matrix.astype('float') / conf_matrix.sum(axis=1)[:,np.newaxis]
     fig, ax = plt.subplots(figsize=(10,10))
