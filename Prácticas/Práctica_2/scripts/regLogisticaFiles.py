@@ -37,6 +37,8 @@ def default():
     accuracy = accuracy_score(y_test, y_pred)
     accuracy_percentage = 100 * accuracy
     print("Accuracy Percentage: ", accuracy_percentage, "%")
+    print('intercept value:', logistic_reg.intercept_)
+    print('coeffiecients:', logistic_reg.coef_)
 
     conf_matrix = confusion_matrix(y_test,y_pred)
 
@@ -95,6 +97,9 @@ def genero():
     accuracy = accuracy_score(y_test, y_pred)
     accuracy_percentage = 100 * accuracy
     print("Accuracy Percentage: ", accuracy_percentage, "%")
+
+    print('intercept value:', logistic_reg.intercept_)
+    print('coeffiecients:', logistic_reg.coef_)
 
     conf_matrix = confusion_matrix(y_test,y_pred)
 
