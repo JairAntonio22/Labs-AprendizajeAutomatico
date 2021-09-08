@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sb
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import confusion_matrix
@@ -36,6 +37,32 @@ def credit():
     plt.figure(1)
     plt.scatter(neighbors, scores)
     plt.plot(neighbors, scores)
+    plt.savefig('scoresCreditPerKNeigh.png')
+
+    neigh = KNeighborsClassifier(algorithm='brute', n_neighbors=5)
+    neigh.fit(X_train, y_train.ravel())
+    y_pred = neigh.predict(X_test)
+    conf_matrix = confusion_matrix(y_test, y_pred)
+
+    fpr = conf_matrix[0][1] / (conf_matrix[0][1] + conf_matrix[1][1])
+    tpr = conf_matrix[0][0] / (conf_matrix[0][0] + conf_matrix[1][0])
+
+    plt.figure(2)
+    plt.scatter([fpr, 0, 0, 1, 1], [tpr, 0, 1, 0, 1])
+    plt.plot([0, fpr, 1], [0, tpr, 1])
+    plt.savefig('rocCreditKN.png')
+
+    cmn = conf_matrix.astype('float') / conf_matrix.sum(axis=1)[:,np.newaxis]
+    fig, ax = plt.subplots(figsize=(10,10))
+    sb.heatmap(
+        cmn, annot=True, fmt='.2f', 
+        xticklabels=('Predicted Non-Debtor', 'Predicted Debtor'), 
+        yticklabels=('Actual Non-Debtor', 'Actual Debtor')
+    )
+
+    plt.ylabel('Actual')
+    plt.xlabel('Predicted')
+    plt.savefig('confusionCreditMatKN.png')
     plt.show()
 
 def scatterGenero(figurenum, xs, ys):
@@ -86,8 +113,10 @@ def genero():
     plt.figure(1)
     plt.scatter(neighbors, scores)
     plt.plot(neighbors, scores)
+    plt.savefig('scoresGeneroPerKNeigh.png')
 
     scatterGenero(2, X_train, y_train)
+    plt.savefig('weightHeightOriginal2.png')
 
     k = (20 + 50) // 2
     neigh = KNeighborsClassifier(algorithm='brute', n_neighbors=k)
@@ -95,6 +124,29 @@ def genero():
     y_pred = neigh.predict(X_test)
 
     scatterGenero(3, X_test, y_pred)
+    plt.savefig('weightHeightKN.png')
+
+    conf_matrix = confusion_matrix(y_test, y_pred)
+
+    fpr = conf_matrix[0][1] / (conf_matrix[0][1] + conf_matrix[1][1])
+    tpr = conf_matrix[0][0] / (conf_matrix[0][0] + conf_matrix[1][0])
+
+    plt.figure(4)
+    plt.scatter([fpr, 0, 0, 1, 1], [tpr, 0, 1, 0, 1])
+    plt.plot([0, fpr, 1], [0, tpr, 1])
+    plt.savefig('rocGeneroKN.png')
+
+    cmn = conf_matrix.astype('float') / conf_matrix.sum(axis=1)[:,np.newaxis]
+    fig, ax = plt.subplots(figsize=(10,10))
+    sb.heatmap(
+        cmn, annot=True, fmt='.2f', 
+        xticklabels=('Predicted Female', 'Predicted Male'), 
+        yticklabels=('Actual Female', 'Actual Male')
+    )
+
+    plt.ylabel('Actual')
+    plt.xlabel('Predicted')
+    plt.savefig('confusionGeneroMatKN.png')
     plt.show()
 
 credit()
