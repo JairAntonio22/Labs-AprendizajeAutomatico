@@ -1,16 +1,17 @@
 import numpy as np
 import pandas as pd
 from math import e
+import sys
 
 def sigmoid(t):
     return 1 / (1 + e**(-t))
 
 # Evaluación del modelo dadas las entradas xs y coeficientes bs
-def h(xs, bs, intercept=0):
-    return sigmoid(np.dot(xs, bs) + intercept)
+def h(xs, bs):
+    return np.dot(xs, bs)
 
 # Cálculo de gradiente, esto se transcribió directamente desde la fórmula
-def grad_mse(xs, ys, bs):
+def grad(xs, ys, bs):
     return np.dot(h(xs, bs) - ys, xs)
 
 # Implementación de descenso de gradiente
@@ -20,8 +21,7 @@ def grad_desc(xs, ys, alpha):
     steps = 0
 
     while np.linalg.norm(gs) > 0.01 and steps < 10_000:
-        gs = grad_mse(xs, ys, bs)
-        print(gs)
+        gs = grad(xs, ys, bs)
         bs -= alpha * gs
         steps += 1
 
@@ -54,13 +54,12 @@ if __name__ == '__main__':
     binaryNum = {'Yes':1, 'No':0}
 
     df.default = [binaryNum[item] for item in df.default]
-
     df.student = [binaryNum[item] for item in df.student]
 
     X = np.array(df[['student', 'balance', 'income']])
-    y = np.array(df[['default']])
+    y = np.array(df[['default']]).flatten()
 
-    intercept, bs = grad_desc(X, y, 0.00001)
+    intercept, bs = grad_desc(X, y, 1e-14)
 
     print("========Default.txt==============")
     print('Confusion Matrix: \n')
@@ -69,7 +68,6 @@ if __name__ == '__main__':
     print('intercept value:', intercept)
     print('coeffiecients:', bs)
 
-
     df = pd.read_csv("genero.txt", header=0)
 
     gender = {'Male':1, 'Female':0}
@@ -77,9 +75,9 @@ if __name__ == '__main__':
     df.Gender = [gender[item] for item in df.Gender]
 
     X = np.array(df[['Height','Weight']])
-    y = np.array(df[['Gender']])
+    y = np.array(df[['Gender']]).flatten()
 
-    intercept, bs = grad_desc(X, y, 0.00001)
+    intercept, bs = grad_desc(X, y, 1e-14)
 
     print('=== genero.txt ===')
     print('Confusion Matrix: \n')

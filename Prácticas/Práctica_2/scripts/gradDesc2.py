@@ -2,7 +2,7 @@ import numpy as np
 from math import e
 
 def sigmoid(t):
-    return 1 / (1 + e**(-t))
+    return 1 / (1 + e ** (-t))
 
 # Evaluación del modelo dadas las entradas xs y coeficientes bs
 def h(xs, bs):
@@ -10,7 +10,7 @@ def h(xs, bs):
 
 # Cálculo de gradiente, esto se transcribió directamente desde la fórmula
 def grad_mse(xs, ys, bs, n):
-    return np.dot(h(xs, bs) -y1) xs)
+    return np.dot(h(xs, bs) - ys, xs)
 
 # Implementación de descenso de gradiente
 def grad_desc(xs, ys, alpha):
