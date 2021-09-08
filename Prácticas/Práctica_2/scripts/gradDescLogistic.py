@@ -1,14 +1,13 @@
 import numpy as np
 import pandas as pd
 from math import e
-import sys
 
 def sigmoid(t):
     return 1 / (1 + e**(-t))
 
 # Evaluación del modelo dadas las entradas xs y coeficientes bs
 def h(xs, bs):
-    return np.dot(xs, bs)
+    return sigmoid(np.dot(xs, bs))
 
 # Cálculo de gradiente, esto se transcribió directamente desde la fórmula
 def grad(xs, ys, bs):
@@ -59,7 +58,7 @@ if __name__ == '__main__':
     X = np.array(df[['student', 'balance', 'income']])
     y = np.array(df[['default']]).flatten()
 
-    intercept, bs = grad_desc(X, y, 1e-14)
+    intercept, bs = grad_desc(X, y, 1e-15)
 
     print("========Default.txt==============")
     print('Confusion Matrix: \n')
@@ -77,7 +76,7 @@ if __name__ == '__main__':
     X = np.array(df[['Height','Weight']])
     y = np.array(df[['Gender']]).flatten()
 
-    intercept, bs = grad_desc(X, y, 1e-14)
+    intercept, bs = grad_desc(X, y, 1e-15)
 
     print('=== genero.txt ===')
     print('Confusion Matrix: \n')
