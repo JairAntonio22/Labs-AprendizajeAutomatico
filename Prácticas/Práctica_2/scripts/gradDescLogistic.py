@@ -61,9 +61,6 @@ if __name__ == '__main__':
     intercept, bs = grad_desc(X, y, 1e-15)
 
     print("========Default.txt==============")
-    print('Confusion Matrix: \n')
-    print('Classification Report: \n')
-    print('Accuracy Percentage: \n')
     print('intercept value:', intercept)
     print('coeffiecients:', bs)
 
@@ -79,9 +76,6 @@ if __name__ == '__main__':
     intercept, bs = grad_desc(X, y, 1e-15)
 
     print('=== genero.txt ===')
-    print('Confusion Matrix: \n')
-    print('Classification Report: \n')
-    print('Accuracy Percentage: \n')
     print('intercept value:', intercept)
     print('coeffiecients:', bs)
 
