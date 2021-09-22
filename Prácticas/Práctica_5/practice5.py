@@ -2,8 +2,15 @@ import numpy as np
 import os
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+import graphviz
 from graphviz import Source
+import sklearn
+from sklearn import datasets
+from sklearn.decomposition import PCA
 from sklearn.tree import export_graphviz
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn import tree
 from matplotlib.colors import ListedColormap
 
 #Configurar figuras con directorio para guardarlas
@@ -26,6 +33,14 @@ def save_fig(fig_id, tight_layout=True, fig_extension="png", resolution=300):
 #######################################
 #Inducir arbol de decision usando dataset de:
 # https://scikit-learn.org/stable/auto_examples/datasets/plot_iris_dataset.html
+iris = datasets.load_iris()
+X = iris.data
+y = iris.target
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+tree_clf = tree.DecisionTreeClassifier(max_depth=3)
+tree_clf.fit(X_train, y_train)
 
 
 #######################################
@@ -48,9 +63,8 @@ Source.from_file(os.path.join(IMAGES_PATH, "iris_tree.dot"))
 
 #Probar árbol de decisión final con conjuntos de Train y Test
 
-
 #Calcular precisión del modelo
-
+print(tree_clf.score(X_test, y_test))
 
 #Visualizar particiones generadas por cada split
 def plot_decision_boundary(clf, X, y, axes=[0, 7.5, 0, 3], iris=True, legend=False,
@@ -91,5 +105,3 @@ plt.show()
 ##Hacer lo mismo para wine y breast_cancer
 #wine: https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_wine.html
 #breast_cancer: https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_breast_cancer.html
-
- 
