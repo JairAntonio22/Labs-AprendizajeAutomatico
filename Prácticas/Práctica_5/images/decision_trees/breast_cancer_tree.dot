@@ -1,0 +1,33 @@
+digraph Tree {
+node [shape=box, style="filled, rounded", color="black", fontname=helvetica] ;
+edge [fontname=helvetica] ;
+0 [label="mean radius <= 15.025\ngini = 0.468\nsamples = 398\nvalue = [149, 249]\nclass = benign", fillcolor="#afd8f5"] ;
+1 [label="mean texture <= 19.61\ngini = 0.241\nsamples = 278\nvalue = [39, 239]\nclass = benign", fillcolor="#59ade9"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label="mean texture <= 15.535\ngini = 0.093\nsamples = 184\nvalue = [9, 175]\nclass = benign", fillcolor="#43a2e6"] ;
+1 -> 2 ;
+3 [label="gini = 0.0\nsamples = 66\nvalue = [0, 66]\nclass = benign", fillcolor="#399de5"] ;
+2 -> 3 ;
+4 [label="gini = 0.141\nsamples = 118\nvalue = [9, 109]\nclass = benign", fillcolor="#49a5e7"] ;
+2 -> 4 ;
+5 [label="mean radius <= 13.405\ngini = 0.435\nsamples = 94\nvalue = [30, 64]\nclass = benign", fillcolor="#96cbf1"] ;
+1 -> 5 ;
+6 [label="gini = 0.255\nsamples = 60\nvalue = [9, 51]\nclass = benign", fillcolor="#5caeea"] ;
+5 -> 6 ;
+7 [label="gini = 0.472\nsamples = 34\nvalue = [21, 13]\nclass = malignant", fillcolor="#f5cfb4"] ;
+5 -> 7 ;
+8 [label="mean texture <= 16.395\ngini = 0.153\nsamples = 120\nvalue = [110, 10]\nclass = malignant", fillcolor="#e78c4b"] ;
+0 -> 8 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+9 [label="mean radius <= 18.52\ngini = 0.473\nsamples = 13\nvalue = [5, 8]\nclass = benign", fillcolor="#b5daf5"] ;
+8 -> 9 ;
+10 [label="gini = 0.32\nsamples = 10\nvalue = [2, 8]\nclass = benign", fillcolor="#6ab6ec"] ;
+9 -> 10 ;
+11 [label="gini = 0.0\nsamples = 3\nvalue = [3, 0]\nclass = malignant", fillcolor="#e58139"] ;
+9 -> 11 ;
+12 [label="mean radius <= 16.925\ngini = 0.037\nsamples = 107\nvalue = [105, 2]\nclass = malignant", fillcolor="#e5833d"] ;
+8 -> 12 ;
+13 [label="gini = 0.137\nsamples = 27\nvalue = [25, 2]\nclass = malignant", fillcolor="#e78b49"] ;
+12 -> 13 ;
+14 [label="gini = 0.0\nsamples = 80\nvalue = [80, 0]\nclass = malignant", fillcolor="#e58139"] ;
+12 -> 14 ;
+}

@@ -100,7 +100,7 @@ def iris_procedure():
 
 def wine_procedure():
     wine = datasets.load_wine()
-    X = wine.data[:2,:2]
+    X = wine.data[:,:2]
     y = wine.target
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
@@ -112,7 +112,7 @@ def wine_procedure():
     export_graphviz(
             tree_clf,
             out_file=os.path.join(IMAGES_PATH, "wine_tree.dot"),
-            feature_names=wine.feature_names[2:],
+            feature_names=wine.feature_names[:2],
             class_names=wine.target_names,
             rounded=True,
             filled=True
@@ -130,11 +130,7 @@ def wine_procedure():
     print(precision)
 
     plt.figure(figsize=(8, 4))
-    plot_decision_boundary(tree_clf, X, y)
-    plt.plot([2.45, 2.45], [0, 3], "k-", linewidth=2)
-    plt.plot([2.45, 7.5], [1.75, 1.75], "k--", linewidth=2)
-    plt.text(1.40, 1.0, "Depth=0", fontsize=15)
-    plt.text(3.2, 1.80, "Depth=1", fontsize=13)
+    plot_decision_boundary(tree_clf, X, y, axes=[10, 16, 0, 6], iris=False)
     save_fig("wine_decision_tree_decision_boundaries_plot")
     plt.show()
 
@@ -152,8 +148,8 @@ def breast_procedure():
     export_graphviz(
             tree_clf,
             out_file=os.path.join(IMAGES_PATH, "breast_cancer_tree.dot"),
-            feature_names=wine.feature_names[2:],
-            class_names=wine.target_names,
+            feature_names=breast.feature_names[:2],
+            class_names=breast.target_names,
             rounded=True,
             filled=True
         )
@@ -170,11 +166,7 @@ def breast_procedure():
     print(precision)
 
     plt.figure(figsize=(8, 4))
-    plot_decision_boundary(tree_clf, X, y)
-    plt.plot([2.45, 2.45], [0, 3], "k-", linewidth=2)
-    plt.plot([2.45, 7.5], [1.75, 1.75], "k--", linewidth=2)
-    plt.text(1.40, 1.0, "Depth=0", fontsize=15)
-    plt.text(3.2, 1.80, "Depth=1", fontsize=13)
+    plot_decision_boundary(tree_clf, X, y, axes=[5, 30, 5, 40], iris=False)
     save_fig("breast_cancer_decision_tree_decision_boundaries_plot")
     plt.show()
 
