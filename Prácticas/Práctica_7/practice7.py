@@ -50,12 +50,13 @@ def main():
         'steelblue', 'slategrey', 'mediumslateblue', 'mediumorchid', 'deeppink'
     ]
 
+    print('%15s%15s' % ('model'.center(15, ' '), 'precision'.center(15, ' ')))
+
     for name, clf in zip(names, clfs):
         clf.fit(X_train, y_train)
         score = clf.score(X_test, y_test) * 100
 
-        print('===== %s =====' % name.center(15, ' '))
-        print('precision: %5.2f%%\n' % score)
+        print('%15s %8.2f%%' % (name.center(15, ' '), score))
 
         if name in ['knn', 'bayes']:
             y_score = clf.predict_proba(X_test)
